@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+/frontend/dist/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Databases & local state
+*.db
+auravenue.db
+.env
+local_settings.py
+
+# Editor settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
