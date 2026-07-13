@@ -221,3 +221,13 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     except WebSocketDisconnect:
         await queue_service.unregister_connection(client_id, websocket)
         logger.info(f"WebSocket disconnected for client {client_id}")
+
+from fastapi.staticfiles import StaticFiles
+import os
+
+# Securely mount React build assets
+static_path = "static"
+if not os.path.exists(static_path):
+    os.makedirs(static_path, exist_ok=True)
+app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
+
