@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   Shield,
-  User,
   LogOut,
-  MapPin,
-  Flame,
-  Plus,
-  Compass,
-  FileText,
   Volume2,
   Sparkles,
   Globe,
   Bell,
   Sun,
   Moon,
-  Send,
-  CheckCircle,
-  HelpCircle
+  Compass
 } from 'lucide-react';
 import { Dashboard3D } from './components/Dashboard3D';
 import { QueueStatus } from './components/QueueStatus';
@@ -440,6 +432,17 @@ export default function App() {
                     <Button onClick={handleAiParse} disabled={aiParsing} size="sm">
                       {aiParsing ? "Analyzing Speech Pattern..." : t.parseButton}
                     </Button>
+                    {parsedAlertResult && (
+                      <div style={{ marginTop: '8px', padding: '10px', backgroundColor: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '4px', fontSize: '0.8rem' }}>
+                        <div style={{ fontWeight: 'bold', color: 'white', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <Sparkles size={12} className="text-accent-secondary" /> AI Classified Triage Output:
+                        </div>
+                        <div style={{ color: 'var(--text-primary)', marginBottom: '2px' }}><strong>Title:</strong> {parsedAlertResult.title}</div>
+                        <div style={{ color: 'var(--text-primary)', marginBottom: '2px' }}><strong>Category:</strong> {parsedAlertResult.category}</div>
+                        <div style={{ color: 'var(--text-primary)', marginBottom: '2px' }}><strong>Severity:</strong> <span style={{ color: parsedAlertResult.severity === 'Critical' || parsedAlertResult.severity === 'High' ? 'var(--density-high)' : 'var(--density-medium)' }}>{parsedAlertResult.severity}</span></div>
+                        <div style={{ color: 'var(--text-secondary)' }}><strong>Dispatch Strategy:</strong> {parsedAlertResult.action_plan}</div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Right block: Live Feed */}
@@ -528,6 +531,37 @@ export default function App() {
                   )}
                 </div>
               )}
+
+              {/* Eco & Transit Orchestration Panel */}
+              <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
+                <h3 style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1rem' }}>
+                  <Compass size={16} className="text-accent-secondary" /> Eco & Transit Orchestration
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.8rem' }}>
+                  <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', paddingBottom: '6px' }}>
+                    <span style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>FIFA SUSTAINABILITY MATRIX:</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
+                      <span>♻️ Waste Diversion Rate</span>
+                      <strong style={{ color: '#22c55e' }}>92.4% (Zero-Waste Target)</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
+                      <span>⚡ Solar Canopy Generation</span>
+                      <strong style={{ color: 'var(--accent-secondary)' }}>842 kW (Grid Active)</strong>
+                    </div>
+                  </div>
+                  <div>
+                    <span style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>TRANSIT INTEGRATION FEED:</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
+                      <span>🚇 Metro Transit Flow</span>
+                      <strong style={{ color: 'white' }}>High Density (Peak)</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
+                      <span>🔌 Electric Shuttle Fleet</span>
+                      <strong style={{ color: '#22c55e' }}>18/20 Dispatch Active</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>

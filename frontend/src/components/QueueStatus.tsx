@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Clock, Flame, AlertCircle } from 'lucide-react';
+import { Clock, Flame, AlertCircle } from 'lucide-react';
 
 interface ZoneData {
   id: string;

@@ -13,32 +13,6 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'secondary':
-        return 'bg-secondary text-primary border border-color hover:bg-tertiary';
-      case 'danger':
-        return 'bg-density-high text-white hover:opacity-90';
-      case 'ghost':
-        return 'bg-transparent text-secondary hover:bg-tertiary hover:text-primary';
-      case 'primary':
-      default:
-        return 'bg-accent-primary text-white hover:bg-accent-hover';
-    }
-  };
-
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'sm':
-        return 'padding-sm font-sm';
-      case 'lg':
-        return 'padding-lg font-lg';
-      case 'md':
-      default:
-        return 'padding-md';
-    }
-  };
-
   const styleRules = {
     display: 'inline-flex',
     alignItems: 'center',

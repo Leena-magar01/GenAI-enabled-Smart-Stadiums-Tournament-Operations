@@ -1,0 +1,38 @@
+name: AuraVenue CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Codebase
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+
+    - name: Install Python requirements
+      run: |
+        pip install --upgrade pip
+        pip install -r backend/requirements.txt
+
+    - name: Run Code Quality Checks
+      run: |
+        python -m py_compile backend/app/main.py
+
+    - name: Run Automated Test Suite
+      run: |
+        python tests/run_tests_manual.py

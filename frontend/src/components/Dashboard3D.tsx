@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { ShieldAlert, Play, Users, Clock, AlertTriangle, ArrowRight } from 'lucide-react';
+import { ShieldAlert, Play, Users, Clock, ArrowRight } from 'lucide-react';
 
 interface ZoneData {
   id: string;
@@ -114,7 +114,7 @@ export const Dashboard3D: React.FC<Dashboard3DProps> = ({
     drawIsometricElipse(centerX, centerY, 20, 11, 'transparent', 'rgba(255, 255, 255, 0.25)', 1);
 
     // Draw sectors
-    sectorAngles.forEach((sec, idx) => {
+    sectorAngles.forEach((sec) => {
       const zoneData = zones.find(z => z.id === sec.id);
       const capacityUtil = zoneData ? (zoneData.occupancy_count / zoneData.capacity) : 0.4;
       
