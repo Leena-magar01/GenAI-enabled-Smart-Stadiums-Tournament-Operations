@@ -1,13 +1,4 @@
-# Stage 1: Build the React frontend PWA
-FROM node:20-alpine AS frontend-builder
-WORKDIR /frontend
-COPY frontend/package*.json ./
-# Bypass peer dependency conflicts on React 19
-RUN npm install --legacy-peer-deps
-COPY frontend/ ./
-RUN npm run build
-
-# Stage 2: Setup the production Python environment
+# Production Python environment for backend hosting
 FROM python:3.11-slim
 WORKDIR /app
 
@@ -23,10 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy FastAPI codebase
 COPY backend/app ./app
 
-# Copy static frontend assets built in Stage 1
-COPY --from=frontend-builder /frontend/dist ./static
-
-# Expose port (Cloud Run dynamically sets $PORT environment variable)
+# Expose port (Render sets $PORT environment variable automatically)
 ENV PORT=8080
 EXPOSE 8080
 

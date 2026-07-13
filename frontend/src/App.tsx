@@ -177,7 +177,8 @@ export default function App() {
     
     // Call local endpoint or resolve via mock
     try {
-      const response = await fetch("http://localhost:8000/api/v1/ai/parse-report", {
+      const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const response = await fetch(`${API_BASE}/api/v1/ai/parse-report`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer mock-token" },
         body: JSON.stringify({ report: rawReportText })
