@@ -66,3 +66,5 @@ class Telemetry(Base):
     wait_time_seconds = Column(Integer, nullable=False)
 
     zone = relationship("Zone", back_populates="telemetry")
+
+# Build Sync: July 15, 2026

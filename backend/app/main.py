@@ -231,3 +231,5 @@ if not os.path.exists(static_path):
     os.makedirs(static_path, exist_ok=True)
 app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
 
+
+# Build Sync: July 15, 2026

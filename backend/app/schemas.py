@@ -88,3 +88,5 @@ class QueueForecast(BaseModel):
     bottleneck_probability: float  # 0.0 to 1.0
     action_required: bool
     recommended_action: Optional[str] = None
+
+# Build Sync: July 15, 2026

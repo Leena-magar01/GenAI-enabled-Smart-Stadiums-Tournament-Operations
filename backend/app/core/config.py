@@ -20,3 +20,5 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 settings = Settings()
+
+# Build Sync: July 15, 2026

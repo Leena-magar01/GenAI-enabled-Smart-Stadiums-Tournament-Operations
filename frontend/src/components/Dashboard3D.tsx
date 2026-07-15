@@ -409,3 +409,5 @@ export const Dashboard3D: React.FC<Dashboard3DProps> = ({
     </div>
   );
 };
+
+// Build Sync: July 15, 2026
