@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "tsc --noEmit"
+    "test": "node node_modules/typescript/bin/tsc --noEmit"
   },
   "dependencies": {
     "react": "^19.0.0",

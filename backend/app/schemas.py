@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 
@@ -21,8 +21,7 @@ class UserResponse(UserBase):
     id: str
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class Token(BaseModel):
     access_token: str
@@ -37,8 +36,7 @@ class ZoneBase(BaseModel):
     description: Optional[str] = None
 
 class ZoneResponse(ZoneBase):
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Incident Schemas
 class IncidentCreate(BaseModel):
@@ -62,8 +60,7 @@ class IncidentResponse(BaseModel):
     created_at: datetime
     resolved_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Telemetry Schemas
 class TelemetryCreate(BaseModel):
@@ -77,8 +74,7 @@ class TelemetryResponse(TelemetryCreate):
     id: int
     time: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Predictive Forecast
 class QueueForecast(BaseModel):
