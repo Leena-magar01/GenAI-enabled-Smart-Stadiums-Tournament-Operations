@@ -99,6 +99,33 @@ export default function App() {
   // Real-time toast notifications
   const [notifications, setNotifications] = useState<string[]>([]);
 
+  // Sustainability state and polling loop
+  const [sustainabilityData, setSustainabilityData] = useState<any>({
+    waste_diversion_rate: 92.4,
+    solar_generation_kw: 842.0,
+    metro_transit_flow: "High Density (Peak)",
+    electric_shuttles_active: 18,
+    electric_shuttles_total: 20
+  });
+
+  useEffect(() => {
+    const fetchSustainability = async () => {
+      try {
+        const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+        const response = await fetch(`${API_BASE}/api/v1/telemetry/sustainability`);
+        if (response.ok) {
+          const data = await response.json();
+          setSustainabilityData(data);
+        }
+      } catch (err) {
+        console.error("Failed to load sustainability metrics:", err);
+      }
+    };
+    fetchSustainability();
+    const ecoInterval = setInterval(fetchSustainability, 30000);
+    return () => clearInterval(ecoInterval);
+  }, []);
+
   // Simulation daemon
   useEffect(() => {
     const interval = setInterval(() => {
@@ -542,22 +569,22 @@ export default function App() {
                     <span style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>FIFA SUSTAINABILITY MATRIX:</span>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
                       <span>♻️ Waste Diversion Rate</span>
-                      <strong style={{ color: '#22c55e' }}>92.4% (Zero-Waste Target)</strong>
+                      <strong style={{ color: '#22c55e' }}>{sustainabilityData.waste_diversion_rate}% (Zero-Waste Target)</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
                       <span>⚡ Solar Canopy Generation</span>
-                      <strong style={{ color: 'var(--accent-secondary)' }}>842 kW (Grid Active)</strong>
+                      <strong style={{ color: 'var(--accent-secondary)' }}>{sustainabilityData.solar_generation_kw} kW (Grid Active)</strong>
                     </div>
                   </div>
                   <div>
                     <span style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>TRANSIT INTEGRATION FEED:</span>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
                       <span>🚇 Metro Transit Flow</span>
-                      <strong style={{ color: 'white' }}>High Density (Peak)</strong>
+                      <strong style={{ color: 'white' }}>{sustainabilityData.metro_transit_flow}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
                       <span>🔌 Electric Shuttle Fleet</span>
-                      <strong style={{ color: '#22c55e' }}>18/20 Dispatch Active</strong>
+                      <strong style={{ color: '#22c55e' }}>{sustainabilityData.electric_shuttles_active}/{sustainabilityData.electric_shuttles_total} Dispatch Active</strong>
                     </div>
                   </div>
                 </div>

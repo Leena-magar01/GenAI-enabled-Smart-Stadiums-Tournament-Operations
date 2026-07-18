@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from typing import List, Dict
+from typing import Dict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("QueueService")

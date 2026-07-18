@@ -1,13 +1,16 @@
+import os
+import random
 import asyncio
 import logging
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, Query, HTTPException, status
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 from contextlib import asynccontextmanager
-from typing import Dict
+
+from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.core.config import settings
-from app.database.session import engine, Base, SessionLocal, get_db
+from app.database.session import engine, Base, SessionLocal
 from app.database import models
 from app.core import security
 from app.routers import auth, incidents, telemetry
@@ -74,8 +77,6 @@ async def generate_mock_telemetry_loop():
         logger.error(f"Error in telemetry generation loop: {str(e)}")
     finally:
         db.close()
-
-import random # Ensure random is loaded locally inside thread
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -221,9 +222,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     except WebSocketDisconnect:
         await queue_service.unregister_connection(client_id, websocket)
         logger.info(f"WebSocket disconnected for client {client_id}")
-
-from fastapi.staticfiles import StaticFiles
-import os
 
 # Securely mount React build assets
 static_path = "static"

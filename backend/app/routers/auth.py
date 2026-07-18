@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 import jwt
 from app.database.session import get_db
@@ -81,7 +81,6 @@ def login(login_in: schemas.UserLogin, db: Session = Depends(get_db)):
     }
 
 # Fallback endpoint for Swagger UI oauth flow compatibility
-from fastapi.security import OAuth2PasswordRequestForm
 @router.post("/login-form-fallback")
 def login_form(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == form_data.username).first()

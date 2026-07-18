@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 class AIService:
     def __init__(self):
@@ -80,7 +80,7 @@ class AIService:
             res_json = response.json()
             content = res_json['choices'][0]['message']['content']
             return json.loads(content)
-        except Exception as e:
+        except Exception:
             # Return template fallback on API failures
             return {
                 "title": "Unstructured Report",

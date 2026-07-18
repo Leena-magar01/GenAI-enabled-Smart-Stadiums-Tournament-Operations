@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 
 # User Schemas
@@ -88,5 +88,14 @@ class QueueForecast(BaseModel):
     bottleneck_probability: float  # 0.0 to 1.0
     action_required: bool
     recommended_action: Optional[str] = None
+
+
+class SustainabilityResponse(BaseModel):
+    waste_diversion_rate: float
+    solar_generation_kw: float
+    metro_transit_flow: str
+    electric_shuttles_active: int
+    electric_shuttles_total: int
+
 
 # Build Sync: July 15, 2026
